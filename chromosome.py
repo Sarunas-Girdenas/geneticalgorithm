@@ -1,3 +1,5 @@
+from typing import Tuple
+
 class Chromosome():
 
     def __init__(self, seed):
@@ -12,9 +14,6 @@ class Chromosome():
     def value(self) -> str:
         return self.seed
 
-    def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> "Chromosome":
-
-        if another_chromosome.value == "0":
-            Chromosome("0")
-        
-        return Chromosome("1")
+    def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> Tuple["Chromosome", "Chromosome"]:
+            
+        return (another_chromosome, Chromosome("0"))
