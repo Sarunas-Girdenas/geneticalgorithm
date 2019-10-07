@@ -14,4 +14,7 @@ class Chromosome():
 
     def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> "Chromosome":
 
-        return Chromosome("0")
+        if another_chromosome.value == "0":
+            Chromosome("0")
+        
+        return Chromosome("1")
