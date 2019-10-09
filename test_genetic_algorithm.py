@@ -21,10 +21,10 @@ class Testalgo(unittest.TestCase):
         second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[1]
 
         self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
-            f"crossed: {first_chromosome_crossed.value}, seed: {first_chromosome_crossed_seed}")
+            f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
 
         self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
-            f"crossed: {second_chromosome_crossed.value}, seed: {second_chromosome_crossed_seed}")
+            f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
     
 
     @parameterized.expand([
@@ -44,7 +44,28 @@ class Testalgo(unittest.TestCase):
         second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[1]
 
         self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
-            f"crossed: {first_chromosome_crossed.value}, seed: {first_chromosome_crossed_seed}")
+            f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
 
         self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
-            f"crossed: {second_chromosome_crossed.value}, seed: {second_chromosome_crossed_seed}")
+            f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
+
+    @parameterized.expand([
+        ["1111", "0000", 1, "1000", "0111"],
+        ["1111", "0000", 1, "1000", "0111"]
+    ])
+
+    def test_crossover_at_index_1_longer_chromosomes(self, first_chromosome_seed: str, second_chromosome_seed: str,
+                                  crossover_index: int, first_chromosome_crossed_seed: str,
+                                  second_chromosome_crossed_seed: str):
+
+        first_chromosome = Chromosome(first_chromosome_seed)
+        second_chromosome = Chromosome(second_chromosome_seed)
+
+        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[0]
+        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[1]
+
+        self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
+            f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
+
+        self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
+            f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
