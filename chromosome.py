@@ -1,10 +1,10 @@
 from typing import Tuple
+from dataclasses import dataclass
 
-class Chromosome():
+@dataclass(frozen=True)
+class Chromosome:
 
-    def __init__(self, seed: str):
-
-        self.seed = seed
+    seed: str
 
     def __eq__(self, another_chromosome: "Chromosome"):
         return isinstance(another_chromosome, Chromosome) and self.seed == another_chromosome.seed
@@ -16,13 +16,10 @@ class Chromosome():
     def to_string(self) -> str:
         return str(self.seed)
 
-    def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> "CrossedChromosomes":
-        return CrossedChromosomes(self, another_chromosome, crossover_index)
-
 class CrossedChromosomes():
 
     def __init__(self, first_chromosome: "Chromosome", second_chromosome: "Chromosome",
-                crossover_index: int):
+                 crossover_index: int):
         first_seed = ""
         second_seed = ""
 
