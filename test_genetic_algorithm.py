@@ -1,6 +1,6 @@
 import unittest
 from parameterized import parameterized
-from chromosome import Chromosome
+from chromosome import Chromosome, CrossedChromosomes
 
 class Testalgo(unittest.TestCase):
 
@@ -17,8 +17,8 @@ class Testalgo(unittest.TestCase):
         first_chromosome = Chromosome(first_chromosome_seed)
         second_chromosome = Chromosome(second_chromosome_seed)
 
-        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[0]
-        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[1]
+        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index).first()
+        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index).second()
 
         self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
             f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
@@ -40,8 +40,8 @@ class Testalgo(unittest.TestCase):
         first_chromosome = Chromosome(first_chromosome_seed)
         second_chromosome = Chromosome(second_chromosome_seed)
 
-        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[0]
-        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[1]
+        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index).first()
+        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index).second()
 
         self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
             f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
@@ -62,8 +62,8 @@ class Testalgo(unittest.TestCase):
         first_chromosome = Chromosome(first_chromosome_seed)
         second_chromosome = Chromosome(second_chromosome_seed)
 
-        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[0]
-        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index)[1]
+        first_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index).first()
+        second_chromosome_crossed = first_chromosome.cross(second_chromosome, crossover_index).second()
 
         self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
             f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")

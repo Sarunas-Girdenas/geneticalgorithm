@@ -6,7 +6,6 @@ class Chromosome():
 
         self.seed = seed
 
-        return None
     def __eq__(self, another_chromosome: "Chromosome"):
         return isinstance(another_chromosome, Chromosome) and self.seed == another_chromosome.seed
     
@@ -17,16 +16,32 @@ class Chromosome():
     def to_string(self) -> str:
         return str(self.seed)
 
-    def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> Tuple["Chromosome", "Chromosome"]:
+    def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> "CrossedChromosomes":
+        return CrossedChromosomes(self, another_chromosome, crossover_index)
 
-        if another_chromosome.length >= 4:
-            first_seed = f"{self.seed[0]}{another_chromosome.seed[1:]}"
-            second_seed = f"{another_chromosome.seed[0]}{self.seed[1:]}"
-            return (Chromosome(first_seed), Chromosome(second_seed))
+class CrossedChromosomes():
+
+    def __init__(self, first_chromosome: "Chromosome", second_chromosome: "Chromosome",
+                crossover_index: int):
+        first_seed = ""
+        second_seed = ""
 
         if crossover_index == 1:
-            first_seed = f"{self.seed[0]}{another_chromosome.seed[1]}"
-            second_seed = f"{another_chromosome.seed[0]}{self.seed[1]}"
-            return (Chromosome(first_seed), Chromosome(second_seed))
+            first_seed = f"{first_chromosome.to_string()[0]}{second_chromosome.to_string()[1:]}"
+            second_seed = f"{second_chromosome.to_string()[0]}{first_chromosome.to_string()[1:]}"
+        
+        if crossover_index == 0:
+            first_seed = second_chromosome.to_string()
+            second_seed = first_chromosome.to_string()
+            
 
-        return (another_chromosome, self)
+        self.crossed_chromosomes = (Chromosome(first_seed), Chromosome(second_seed))
+    
+    def first(self):
+        return self.crossed_chromosomes[0]
+    
+    def second(self):
+        return self.crossed_chromosomes[1]
+    
+
+    
