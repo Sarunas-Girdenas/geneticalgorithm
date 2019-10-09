@@ -42,6 +42,3 @@ class CrossedChromosomes():
     
     def second(self):
         return self.crossed_chromosomes[1]
-    
-
-    
