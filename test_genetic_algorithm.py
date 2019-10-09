@@ -51,7 +51,8 @@ class Testalgo(unittest.TestCase):
 
     @parameterized.expand([
         ["1111", "0000", 1, "1000", "0111"],
-        ["1111", "0000", 1, "1000", "0111"]
+        ["1100", "0011", 1, "1011", "0100"],
+        ["1111111111", "0000000000", 1, "1000000000", "0111111111"]
     ])
 
     def test_crossover_at_index_1_longer_chromosomes(self, first_chromosome_seed: str, second_chromosome_seed: str,

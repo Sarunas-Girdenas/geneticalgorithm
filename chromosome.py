@@ -19,8 +19,10 @@ class Chromosome():
 
     def cross(self, another_chromosome: "Chromosome", crossover_index: int) -> Tuple["Chromosome", "Chromosome"]:
 
-        if another_chromosome.length == 4:
-            return (Chromosome("1000"), Chromosome("0111"))
+        if another_chromosome.length >= 4:
+            first_seed = f"{self.seed[0]}{another_chromosome.seed[1:]}"
+            second_seed = f"{another_chromosome.seed[0]}{self.seed[1:]}"
+            return (Chromosome(first_seed), Chromosome(second_seed))
 
         if crossover_index == 1:
             first_seed = f"{self.seed[0]}{another_chromosome.seed[1]}"
