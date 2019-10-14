@@ -20,21 +20,9 @@ class CrossedChromosomes():
 
     def __init__(self, first_chromosome: "Chromosome", second_chromosome: "Chromosome",
                  crossover_index: int):
-        first_seed = ""
-        second_seed = ""
 
-        if crossover_index == 1:
-            first_seed = f"{first_chromosome.to_string()[crossover_index-1]}{second_chromosome.to_string()[crossover_index:]}"
-            second_seed = f"{second_chromosome.to_string()[crossover_index-1]}{first_chromosome.to_string()[crossover_index:]}"
-        
-        if crossover_index == 0:
-            first_seed = second_chromosome.to_string()
-            second_seed = first_chromosome.to_string()
-        
-        if crossover_index == 7:
-            first_seed = f"{first_chromosome.to_string()[:crossover_index]}{second_chromosome.to_string()[crossover_index:]}"
-            second_seed = f"{second_chromosome.to_string()[:crossover_index]}{first_chromosome.to_string()[crossover_index:]}"
-
+        first_seed = f"{first_chromosome.to_string()[:crossover_index]}{second_chromosome.to_string()[crossover_index:]}"
+        second_seed = f"{second_chromosome.to_string()[:crossover_index]}{first_chromosome.to_string()[crossover_index:]}"
         self.crossed_chromosomes = (Chromosome(first_seed), Chromosome(second_seed))
     
     def first(self):
