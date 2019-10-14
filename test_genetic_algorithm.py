@@ -70,3 +70,23 @@ class Testalgo(unittest.TestCase):
 
         self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
             f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
+
+    @parameterized.expand([
+        ["0000000000", "1111111111", 7, "0000000111", "1111111000"]
+    ])
+
+    def test_crossover_at_given_index_longer_chromosomes(self, first_chromosome_seed: str, second_chromosome_seed: str,
+                                  crossover_index: int, first_chromosome_crossed_seed: str,
+                                  second_chromosome_crossed_seed: str):
+                                  
+        first_chromosome = Chromosome(first_chromosome_seed)
+        second_chromosome = Chromosome(second_chromosome_seed)
+
+        first_chromosome_crossed = CrossedChromosomes(first_chromosome, second_chromosome, crossover_index).first()
+        second_chromosome_crossed = CrossedChromosomes(first_chromosome, second_chromosome, crossover_index).second()
+
+        self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
+            f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
+
+        self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
+            f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
