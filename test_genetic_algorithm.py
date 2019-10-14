@@ -78,6 +78,26 @@ class Testalgo(unittest.TestCase):
     def test_crossover_at_given_index_longer_chromosomes(self, first_chromosome_seed: str, second_chromosome_seed: str,
                                   crossover_index: int, first_chromosome_crossed_seed: str,
                                   second_chromosome_crossed_seed: str):
+
+        first_chromosome = Chromosome(first_chromosome_seed)
+        second_chromosome = Chromosome(second_chromosome_seed)
+
+        first_chromosome_crossed = CrossedChromosomes(first_chromosome, second_chromosome, crossover_index).first()
+        second_chromosome_crossed = CrossedChromosomes(first_chromosome, second_chromosome, crossover_index).second()
+
+        self.assertEqual(first_chromosome_crossed, Chromosome(first_chromosome_crossed_seed),
+            f"crossed: {first_chromosome_crossed.to_string()}, seed: {first_chromosome_crossed_seed}")
+
+        self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
+            f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
+
+    @parameterized.expand([
+        ["0000000000", "1111111111", 10, "0000000000", "1111111111"]
+    ])
+
+    def test_crossover_at_last_index_longer_chromosomes(self, first_chromosome_seed: str, second_chromosome_seed: str,
+                                  crossover_index: int, first_chromosome_crossed_seed: str,
+                                  second_chromosome_crossed_seed: str):
                                   
         first_chromosome = Chromosome(first_chromosome_seed)
         second_chromosome = Chromosome(second_chromosome_seed)
@@ -90,3 +110,19 @@ class Testalgo(unittest.TestCase):
 
         self.assertEqual(second_chromosome_crossed, Chromosome(second_chromosome_crossed_seed),
             f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
+    
+
+
+    @parameterized.expand([
+        ["0", "1", [0.7]],
+        ["0", "0", [0.3]],
+        ["00", "01", [0.4, 0.9]],
+
+    ])
+
+    def test_mutate(self,chromosome_seed: str, mutated_seed: str,  injected_random_number: "List"):
+        chromosome = Chromosome(chromosome_seed)
+
+        chromosome_mutated = chromosome.mutate(injected_random_number)
+
+        self.assertEqual(chromosome_mutated, Chromosome(mutated_seed))

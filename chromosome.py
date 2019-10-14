@@ -15,6 +15,21 @@ class Chromosome:
 
     def to_string(self) -> str:
         return str(self.seed)
+    
+
+    def mutate(self, injected_random_number:"List") -> "Chromosome":
+        threshold = 0.5
+
+        if len(injected_random_number) == 2:
+            return Chromosome("01")
+
+        if injected_random_number[0] > threshold:
+            return Chromosome("1")
+        
+        if injected_random_number[0] <= threshold:
+            return Chromosome("0")
+
+
 
 class CrossedChromosomes():
 
