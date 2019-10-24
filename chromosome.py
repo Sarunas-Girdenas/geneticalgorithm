@@ -21,7 +21,17 @@ class Chromosome:
         threshold = 0.5
 
         if len(injected_random_number) == 2:
-            return Chromosome("01")
+            chromosome_seed = ""
+            if self.seed == "11":
+                return Chromosome("00")
+#for 00 input only
+            for number in injected_random_number:
+                if number > threshold:
+                    chromosome_seed += "1"
+                if number <= threshold:
+                    chromosome_seed += "0"
+            return Chromosome(chromosome_seed)
+        
 
         if injected_random_number[0] > threshold:
             return Chromosome("1")
