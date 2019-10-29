@@ -23,7 +23,7 @@ class Chromosome:
         if len(injected_random_number) == 2:
             chromosome_seed = ""
             for number, chromosome_value in zip(injected_random_number, self.seed):
-                chromosome_seed += mutate_element(number, chromosome_value, )
+                chromosome_seed += Chromosome.mutate_element(number, chromosome_value, chromosome_seed)
             return Chromosome(chromosome_seed)
         
 
@@ -33,17 +33,18 @@ class Chromosome:
         if injected_random_number[0] <= threshold:
             return Chromosome("0")
 
-    def mutate_element(random_number,chromosome_value, chromosome_seed):
+    @staticmethod
+    def mutate_element(random_number, chromosome_value, chromosome_seed):
         threshold = 0.5
 
-        if number > threshold and chromosome_value == '0':
+        if random_number > threshold and chromosome_value == '0':
             return "1"
-        if number > threshold and chromosome_value == '1':
+        if random_number > threshold and chromosome_value == '1':
             return "0"
 
-        if number <= threshold and chromosome_value == '0':
+        if random_number <= threshold and chromosome_value == '0':
             return "0"
-        if number <= threshold and chromosome_value == '1':
+        if random_number <= threshold and chromosome_value == '1':
             return "1"
         
 
