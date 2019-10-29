@@ -118,7 +118,8 @@ class Testalgo(unittest.TestCase):
         ["0", "0", [0.3]],
         ["00", "01", [0.4, 0.9]],
         ["00", "11", [0.8, 0.6]],
-        ["11", "00", [0.8, 0.6]]
+        ["11", "00", [0.8, 0.6]],
+        ["101010101010", "110011001100", [0, 1, 0.9, 0.1, 0.2, 0.8, 0.7, 0.3, 0.4, 0.6, 0.7, 0.3]]
     ])
 
     def test_mutate(self,chromosome_seed: str, mutated_seed: str,  injected_random_number: "List"):
