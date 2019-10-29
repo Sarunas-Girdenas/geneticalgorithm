@@ -25,11 +25,16 @@ class Chromosome:
             for number, chromosome_value in zip(injected_random_number, self.seed):
                 chromosome_seed += Chromosome.mutate_element(number, chromosome_value)
             return Chromosome(chromosome_seed)
-        
-        #map(Chromosome.mutate_element, list(zip(number, chromosome_value))
+
 
         if injected_random_number[0] > threshold:
-            return Chromosome("1")
+            chromosome_value = ["0"]
+            chromosome_seed = ""
+            for number, chromosome_value in zip(injected_random_number, chromosome_value):
+                chromosome_seed += Chromosome.mutate_element(number, chromosome_value)
+            return Chromosome(chromosome_seed)
+            
+            
         
         if injected_random_number[0] <= threshold:
             return Chromosome("0")
@@ -37,6 +42,7 @@ class Chromosome:
     @staticmethod
     def mutate_element(random_number, chromosome_value):
         threshold = 0.5
+        
 
         if random_number > threshold and chromosome_value == '0':
             return "1"
