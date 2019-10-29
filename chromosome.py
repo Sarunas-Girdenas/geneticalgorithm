@@ -17,17 +17,25 @@ class Chromosome:
         return str(self.seed)
     
 
-    def mutate(self, injected_random_number:"List") -> "Chromosome":
+    def mutate(self, injected_random_number:"List", **kwargs) -> "Chromosome":
         threshold = 0.5
+        if 'threshold' in kwargs.keys():
+            threshold = kwargs['threshold']
+        
+        mutated_chromosome_seed = self.mutate_lists(injected_random_number, threshold)
 
+        return Chromosome(mutated_chromosome_seed)
+
+    def mutate_lists(self, injected_random_number:"List", threshold):
+        
         chromosome_seed = ""
         for number, chromosome_value in zip(injected_random_number, self.seed):
-            chromosome_seed += Chromosome.mutate_element(number, chromosome_value)
-        return Chromosome(chromosome_seed)
-            
+            chromosome_seed += Chromosome.mutate_element(number, chromosome_value, threshold)
+        return chromosome_seed
+
     @staticmethod
-    def mutate_element(random_number, chromosome_value):
-        threshold = 0.5
+    def mutate_element(random_number, chromosome_value, threshold):
+        # threshold = 0.5
         
 
         if random_number > threshold and chromosome_value == '0':

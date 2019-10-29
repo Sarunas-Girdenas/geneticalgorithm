@@ -120,11 +120,23 @@ class Testalgo(unittest.TestCase):
         ["00", "11", [0.8, 0.6]],
         ["11", "00", [0.8, 0.6]],
         ["101010101010", "110011001100", [0, 1, 0.9, 0.1, 0.2, 0.8, 0.7, 0.3, 0.4, 0.6, 0.7, 0.3]]
+        
     ])
 
     def test_mutate(self,chromosome_seed: str, mutated_seed: str,  injected_random_number: "List"):
         chromosome = Chromosome(chromosome_seed)
 
         chromosome_mutated = chromosome.mutate(injected_random_number)
+
+        self.assertEqual(chromosome_mutated, Chromosome(mutated_seed))
+    
+
+    @parameterized.expand([
+        ["1", "1", [0.7], 1]
+    ])
+    def test_optional_threshold(self,chromosome_seed: str, mutated_seed: str,  injected_random_number: "List", threshold:float):
+        chromosome = Chromosome(chromosome_seed)
+
+        chromosome_mutated = chromosome.mutate(injected_random_number, threshold=threshold)
 
         self.assertEqual(chromosome_mutated, Chromosome(mutated_seed))
