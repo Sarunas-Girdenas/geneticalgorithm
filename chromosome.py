@@ -35,11 +35,10 @@ class Chromosome:
         change_map = self.change_map(injected_random_number, threshold)
 
         for change, chromosome_value in zip(change_map, self.seed):
-            chromosome_seed += Chromosome.mutate_element(chromosome_value, change)
+            chromosome_seed += self.mutate_element(chromosome_value, change)
         return chromosome_seed
 
-    @staticmethod
-    def mutate_element(chromosome_value, change):       
+    def mutate_element(self,chromosome_value, change):       
 
         if chromosome_value == '0' and change:   
             return "1"
@@ -48,13 +47,12 @@ class Chromosome:
         if not change:
             return chromosome_value
     
-    @staticmethod
-    def should_change(number: float, threshold: float) -> bool:
+    def should_change(self, number: float, threshold: float) -> bool:
         return number > threshold
     
     def change_map(self, injected_random_number: "List", threshold: float) -> "List":
 
-        return [Chromosome.should_change(number, threshold) for number in injected_random_number]
+        return [self.should_change(number, threshold) for number in injected_random_number]
 
 
 class CrossedChromosomes():
