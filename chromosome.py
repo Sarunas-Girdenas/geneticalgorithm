@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class Chromosome:
 
     seed: str
+    default_threshold: float = 0.5
 
     def __eq__(self, another_chromosome: "Chromosome"):
         return isinstance(another_chromosome, Chromosome) and self.seed == another_chromosome.seed
@@ -15,36 +16,42 @@ class Chromosome:
 
     def to_string(self) -> str:
         return str(self.seed)
-    
 
-    def mutate(self, injected_random_number:"List", **kwargs) -> "Chromosome":
-        threshold = 0.5
+    def threshold(self, kwargs):
         if 'threshold' in kwargs.keys():
             threshold = kwargs['threshold']
+        if 'threshold' not in kwargs.keys():
+            threshold = self.default_threshold
+        return threshold
+
+    def mutate(self, injected_random_number: "List", **kwargs) -> "Chromosome":
         
-        mutated_chromosome_seed = self.mutate_lists(injected_random_number, threshold)
+        return Chromosome(self.mutate_seed(injected_random_number,self.threshold(kwargs)))
 
-        return Chromosome(mutated_chromosome_seed)
-
-    def mutate_lists(self, injected_random_number:"List", threshold):
+    def mutate_seed(self, injected_random_number: "List", threshold):
         
         chromosome_seed = ""
         for number, chromosome_value in zip(injected_random_number, self.seed):
-            chromosome_seed += Chromosome.mutate_element(number, chromosome_value, threshold)
+            
+            if number > threshold:
+                change = True
+
+            if number <= threshold:
+                change = False
+
+            chromosome_seed += Chromosome.mutate_element(chromosome_value, change)
         return chromosome_seed
 
     @staticmethod
-    def mutate_element(random_number, chromosome_value, threshold):        
+    def mutate_element(chromosome_value, change):       
 
-        if random_number > threshold and chromosome_value == '0':
+        if chromosome_value == '0' and change:   
             return "1"
-        if random_number > threshold and chromosome_value == '1':
+        if chromosome_value == '1' and change:
             return "0"
-
-        if random_number <= threshold and chromosome_value == '0':
-            return "0"
-        if random_number <= threshold and chromosome_value == '1':
-            return "1"
+        if not change:
+            return chromosome_value
+            
         
 
 
