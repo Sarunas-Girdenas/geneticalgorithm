@@ -112,7 +112,6 @@ class Testalgo(unittest.TestCase):
             f"crossed: {second_chromosome_crossed.to_string()}, seed: {second_chromosome_crossed_seed}")
     
 
-
     @parameterized.expand([
         ["0", "1", [0.7]],
         ["0", "0", [0.3]],
@@ -132,9 +131,12 @@ class Testalgo(unittest.TestCase):
     
 
     @parameterized.expand([
-        ["1", "1", [0.7], 1]
+        ["1", "1", [0.7], 1],
+        ["011001", "100110", [0.4,0.3,0.7,1,0.1,0.8], 0],
+        ["011001", "011001", [0.4,0.3,0.7,1,0.1,0.8], 1]
     ])
-    def test_optional_threshold(self,chromosome_seed: str, mutated_seed: str,  injected_random_number: "List", threshold:float):
+    def test_optional_threshold(self,chromosome_seed: str, mutated_seed: str,
+                                injected_random_number: "List", threshold:float):
         chromosome = Chromosome(chromosome_seed)
 
         chromosome_mutated = chromosome.mutate(injected_random_number, threshold=threshold)

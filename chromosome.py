@@ -34,9 +34,7 @@ class Chromosome:
         return chromosome_seed
 
     @staticmethod
-    def mutate_element(random_number, chromosome_value, threshold):
-        # threshold = 0.5
-        
+    def mutate_element(random_number, chromosome_value, threshold):        
 
         if random_number > threshold and chromosome_value == '0':
             return "1"
