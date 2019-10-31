@@ -1,5 +1,7 @@
 from typing import Tuple
 from dataclasses import dataclass
+from functools import reduce
+
 
 @dataclass(frozen=True)
 class Chromosome:
@@ -32,14 +34,20 @@ class Chromosome:
         
         chromosome_seed = ""
 
-        change_map = self.change_map(injected_random_number, threshold)
+        change_map = list(map(lambda random_number: random_number > threshold,injected_random_number))
+        
 
-        for change, chromosome_value in zip(change_map, self.seed):
+        seed_change_map = zip(self.seed, change_map)
+
+        for chromosome_value, change in seed_change_map:
             chromosome_seed += self.mutate_element(chromosome_value, change)
+        
+        # mutated = ""
+        # chromosome_seed = reduce((lambda mutated, zipped: mutated.append(self.mutate_element(zipped[0], zipped[1]))), seed_change_map)
+
         return chromosome_seed
 
-    def mutate_element(self,chromosome_value, change):       
-
+    def mutate_element(self, chromosome_value, change):       
         if chromosome_value == '0' and change:   
             return "1"
         if chromosome_value == '1' and change:
@@ -47,13 +55,6 @@ class Chromosome:
         if not change:
             return chromosome_value
     
-    def should_change(self, number: float, threshold: float) -> bool:
-        return number > threshold
-    
-    def change_map(self, injected_random_number: "List", threshold: float) -> "List":
-
-        return [self.should_change(number, threshold) for number in injected_random_number]
-
 
 class CrossedChromosomes():
 
